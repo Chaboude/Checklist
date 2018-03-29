@@ -8,30 +8,30 @@
 
 import UIKit
 
-protocol AddItemViewControllerDelegate : class {
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController)
-    func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: ChecklistItem)
-    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: ChecklistItem)
+protocol ItemDetailViewControllerDelegate : class {
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: ChecklistItem)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: ChecklistItem)
 }
 
-class AddItemViewController: UITableViewController, UITextFieldDelegate {
+class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var toDoItem: UITextField!
-    var delegate: AddItemViewControllerDelegate?
+    var delegate: ItemDetailViewControllerDelegate?
     var itemToEdit: ChecklistItem?
     
     @IBAction func done(_ sender: Any) {
         if let itemToEdit = itemToEdit {
             itemToEdit.text = toDoItem.text!
-            self.delegate?.addItemViewController(self, didFinishEditingItem: itemToEdit)
+            self.delegate?.itemDetailViewController(self, didFinishEditingItem: itemToEdit)
         }
         else{
-            self.delegate?.addItemViewController(self, didFinishAddingItem: ChecklistItem(text: self.toDoItem.text!))
+            self.delegate?.itemDetailViewController(self, didFinishAddingItem: ChecklistItem(text: self.toDoItem.text!))
         }
     }
     
     @IBAction func cancel(_ sender: Any) {
-        self.delegate?.addItemViewControllerDidCancel(self)
+        self.delegate?.itemDetailViewControllerDidCancel(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
