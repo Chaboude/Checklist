@@ -22,3 +22,10 @@ class ChecklistItem {
     }
     
 }
+
+extension ChecklistItem : Equatable
+{
+    static func == (lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
+        return (lhs.text == rhs.text)
+    }
+}

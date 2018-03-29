@@ -8,6 +8,9 @@
 
 import UIKit
 
+
+
+
 class ChecklistViewController: UITableViewController, AddItemViewControllerDelegate {
 
     var tabChecklistItem = [ChecklistItem]()
@@ -69,6 +72,13 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
             let addItemVC = segueDestination?.topViewController as? AddItemViewController
             addItemVC?.delegate = self
         }
+        else if(segue.identifier == "editItem"){
+            let segueDestination = segue.destination as? UINavigationController
+            let editItemVC = segueDestination?.topViewController as? AddItemViewController
+            let index = tableView.indexPath(for: sender as! ChecklistItemCell)!
+            editItemVC?.itemToEdit = tabChecklistItem[index.row]
+            editItemVC?.delegate = self
+        }
     }
     
     
@@ -92,5 +102,19 @@ extension ChecklistViewController {
         tableView.insertRows(at: [indexPath], with: .automatic)
         controller.dismiss(animated: true)
     }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: ChecklistItem){
+        /*let index = tabChecklistItem.index(where: { $0 == item })
+        tabChecklistItem[index!].text = item.text
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CheckListItem", for: IndexPath(row: index!, section: 0))
+        configureText(for: cell, withItem: tabChecklistItem[index!])
+        tableView.reloadData()
+        dismiss(animated: true, completion: nil)*/
+        let itemIndex = tabChecklistItem.index(where:{ $0 === item })!
+        tableView.reloadRows(at: [IndexPath(row: itemIndex, section: 0)], with: .automatic)
+        controller.dismiss(animated: true)
+    }
 }
+
+
 

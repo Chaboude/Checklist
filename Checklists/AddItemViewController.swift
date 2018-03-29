@@ -11,15 +11,23 @@ import UIKit
 protocol AddItemViewControllerDelegate : class {
     func addItemViewControllerDidCancel(_ controller: AddItemViewController)
     func addItemViewController(_ controller: AddItemViewController, didFinishAddingItem item: ChecklistItem)
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: ChecklistItem)
 }
 
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var toDoItem: UITextField!
     var delegate: AddItemViewControllerDelegate?
+    var itemToEdit: ChecklistItem?
     
     @IBAction func done(_ sender: Any) {
-        self.delegate?.addItemViewController(self, didFinishAddingItem: ChecklistItem(text: self.toDoItem.text!))
+        if let itemToEdit = itemToEdit {
+            itemToEdit.text = toDoItem.text!
+            self.delegate?.addItemViewController(self, didFinishEditingItem: itemToEdit)
+        }
+        else{
+            self.delegate?.addItemViewController(self, didFinishAddingItem: ChecklistItem(text: self.toDoItem.text!))
+        }
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -29,6 +37,14 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         self.toDoItem.becomeFirstResponder()
         self.toDoItem.delegate = self
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if(self.delegate != nil){
+            navigationItem.title = "Edit Item"
+            toDoItem.text = itemToEdit?.text
+        }
     }
     
     //MARK: delegate
