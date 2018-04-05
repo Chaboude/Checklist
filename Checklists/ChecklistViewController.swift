@@ -9,11 +9,11 @@
 import UIKit
 
 
-
-
 class ChecklistViewController: UITableViewController {
-
+    
+    var list: CheckList!
     var tabChecklistItem = [ChecklistItem]()
+    
     var documentDirectory: URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }
@@ -21,25 +21,17 @@ class ChecklistViewController: UITableViewController {
     var dataFileUrl: URL {
         return documentDirectory.appendingPathComponent("CheckLists").appendingPathExtension("json")
     }
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(documentDirectory)
-        print(dataFileUrl)
+        navigationItem.title = list.name
     }
     
     override func awakeFromNib() {
         loadChecklistItems()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     //MARK: - Datasource
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tabChecklistItem.count
     }
@@ -70,7 +62,6 @@ class ChecklistViewController: UITableViewController {
     func configureCheckmark(for cell: UITableViewCell, withItem item: ChecklistItem) {
         let myCell = cell as! ChecklistItemCell
         myCell.labelChecked.isHidden = (item.checked) ? false : true
-        saveChecklistItems()
     }
     
     func configureText(for cell: UITableViewCell, withItem item: ChecklistItem) {
