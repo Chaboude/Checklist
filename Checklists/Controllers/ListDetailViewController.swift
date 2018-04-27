@@ -16,7 +16,9 @@ protocol ListDetailViewControllerDelegate : class {
 
 class ListDetailViewController: UITableViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var toDoList: UITextField!
+    @IBOutlet weak var labelIcon: UILabel!
     var delegate: ListDetailViewControllerDelegate?
     var listToEdit: CheckList?
     
@@ -34,16 +36,22 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
         self.delegate?.listDetailViewControllerDidCancel(self)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        self.toDoList.becomeFirstResponder()
-//        self.toDoList.delegate = self
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.toDoList.becomeFirstResponder()
+        self.toDoList.delegate = self
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let listToEdit = listToEdit{
             navigationItem.title = "Edit List"
-            toDoList.text = listToEdit.name
+            labelIcon.text = listToEdit.icon.rawValue
+            image.image = listToEdit.icon.image
+        }
+        else{
+            navigationItem.title = "Add List"
+            labelIcon.text = IconAsset.NoIcon.rawValue
+            image.image = IconAsset.NoIcon.image
         }
     }
     
