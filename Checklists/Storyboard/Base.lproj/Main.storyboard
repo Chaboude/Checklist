@@ -279,7 +279,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Y6S-9Q-Wrf" kind="show" id="bgV-K0-8RY"/>
+                                            <segue destination="Y6S-9Q-Wrf" kind="show" identifier="chooseIcon" id="bgV-K0-8RY"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -315,7 +315,7 @@
         <!--Icon Picker-->
         <scene sceneID="ZJ3-cJ-N1o">
             <objects>
-                <tableViewController id="v3C-Ne-6oQ" sceneMemberID="viewController">
+                <tableViewController id="v3C-Ne-6oQ" customClass="ImagePickerViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="N1t-yV-BWD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -345,10 +345,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Icon Picker" id="zO1-Xa-mUZ">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="6LZ-On-8Df"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="6LZ-On-8Df">
+                            <connections>
+                                <action selector="cancel:" destination="9QF-wk-tH3" id="qsw-55-jnN"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uad-24-khz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="9QF-wk-tH3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3764" y="789"/>
         </scene>
@@ -389,6 +394,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Tle-C2-1Bk"/>
-        <segue reference="mM5-H7-MBC"/>
+        <segue reference="kYs-Um-mMt"/>
     </inferredMetricsTieBreakers>
 </document>

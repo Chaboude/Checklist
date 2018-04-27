@@ -63,5 +63,25 @@ class ListDetailViewController: UITableViewController, UITextFieldDelegate {
         }
         return true
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "chooseIcon") {
+            let segueDestination = segue.destination as? ImagePickerViewController
+            segueDestination?.delegate = self
+        }
+    }
+    
+    
 
+}
+
+// MARK: - listDetailViewControllerDelegate
+extension ListDetailViewController: ImagePickerViewControllerDelegate{
+    func imagePickerViewControllerDidCancel(_ controller: ImagePickerViewController) {
+        controller.dismiss(animated: true)
+    }
+    
+    func imagePickerViewController(_ controller: ImagePickerViewController, didFinishAddingItem icon: IconAsset) {
+        /**/
+    }
 }

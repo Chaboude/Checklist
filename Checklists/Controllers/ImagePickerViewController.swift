@@ -9,13 +9,19 @@
 import UIKit
 
 protocol ImagePickerViewControllerDelegate : class {
-    func imagePickerViewControllerDidCancel(_ controller: ItemDetailViewController)
-    func imagePickerViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: ChecklistItem)
-    func imagePickerViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: ChecklistItem)
+    func imagePickerViewControllerDidCancel(_ controller: ImagePickerViewController)
+    func imagePickerViewController(_ controller: ImagePickerViewController, didFinishAddingItem icon: IconAsset)
 }
 
 class ImagePickerViewController: UITableViewController {
     
+    var delegate: ImagePickerViewControllerDelegate?
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.delegate?.imagePickerViewControllerDidCancel(self)
+    }
+    
+
     
 }
 
